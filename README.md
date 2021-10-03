@@ -17,7 +17,7 @@ In case you need change the API URL please change the back-end API  URL in one o
 
 ### Notes
 Needs to improve the unit test coverage in back-end application.\
-Add unit test to the fornt-end React Application
+Add unit tests to the front-end React Application
 
 
 

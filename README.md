@@ -10,7 +10,7 @@ In case you need change the API URL please change the back-end API  URL in one o
 
 ### `yarn install`
 ### `yarn start`
-#### Click on the "inventory" tile in home page
+### `Click on the "inventory" tile in home page`
 
 ## How to run the Back-end app
 (1) Run the main java class `InvoiceApplication`

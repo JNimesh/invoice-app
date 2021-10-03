@@ -1,9 +1,9 @@
 package com.vezolve.assignment.service;
 
-
 import com.vezolve.assignment.criteria.InvoiceSearchCriteria;
 import com.vezolve.assignment.model.Invoice;
 import com.vezolve.assignment.repository.InvoiceRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +13,11 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class InvoiceService {
 
     @Autowired
-    InvoiceRepository invoiceRepository;
+    private InvoiceRepository invoiceRepository;
 
     public Page<Invoice> getInvoices(InvoiceSearchCriteria searchCriteria) {
         Pageable paging = searchCriteria.toPageable();
@@ -36,11 +37,26 @@ public class InvoiceService {
         }
 
         Invoice invoiceToUpdate = optional.get();
-        invoiceToUpdate.setDiscount(invoice.getDiscount());
-        invoiceToUpdate.setStatus(invoice.getStatus());
-        invoiceToUpdate.setNetAmount(invoice.getNetAmount());
-        invoiceToUpdate.setGrossAmount(invoice.getGrossAmount());
-        invoiceToUpdate.setCustomerName(invoice.getCustomerName());
+
+        if (invoice.getDiscount() != null) {
+            invoiceToUpdate.setDiscount(invoice.getDiscount());
+        }
+
+        if (invoice.getStatus() != null) {
+            invoiceToUpdate.setStatus(invoice.getStatus());
+        }
+
+        if (invoice.getNetAmount() != null) {
+            invoiceToUpdate.setNetAmount(invoice.getNetAmount());
+        }
+
+        if (invoice.getGrossAmount() != null) {
+            invoiceToUpdate.setGrossAmount(invoice.getGrossAmount());
+        }
+
+        if (invoice.getCustomerName() != null) {
+            invoiceToUpdate.setCustomerName(invoice.getCustomerName());
+        }
 
         return invoiceRepository.save(invoiceToUpdate);
     }

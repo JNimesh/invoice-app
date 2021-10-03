@@ -22,7 +22,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -50,7 +51,7 @@ public class InvoiceControllerTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         invoiceRepository.deleteAll();
         testData = populateTestData();
     }
@@ -76,7 +77,7 @@ public class InvoiceControllerTest {
 
 
     @Test
-    public void testInvoiceUpdated() throws Exception {
+    public void testInvoiceUpdate() throws Exception {
 
         Invoice invoice = testData.get(1L);
         invoice = invoiceRepository.save(invoice);
@@ -94,6 +95,15 @@ public class InvoiceControllerTest {
         assertTrue(optional.isPresent());
         assertEquals(optional.get().getDiscount().doubleValue(), 150.50, 0.0001);
 
+    }
+
+    @Test
+    public void testUpdateForInvalidInvoice() throws Exception {
+
+        mockMvc.perform(put("/invoices/100")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(""))
+                .andExpect(status().isBadRequest());
     }
 
     private Map<Long, Invoice> populateTestData() {

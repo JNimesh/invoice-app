@@ -158,7 +158,7 @@ const InvoicesPage = () => {
                           direction={
                             sortBy === column.id
                               ? sortOrder.toLowerCase()
-                              : "desc"
+                              : "asc"
                           }
                           onClick={() => {
                             handleSortCriteria(column.id);
